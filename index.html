@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>A Love Story — Aankhon Se Batana</title>
+  <meta name="description" content="She said it with her eyes, I said it with code. An interactive scrollytelling love story set to Aankhon Se Batana." />
+  
+  <!-- Open Graph / Social Media Meta -->
+  <meta property="og:title" content="A Love Story — Aankhon Se Batana" />
+  <meta property="og:description" content="She said it with her eyes, I said it with code. Built with GSAP and parallax scrollytelling." />
+  <meta property="og:image" content="assets/images/scene1_the_glance.jpg" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤍</text></svg>" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <!-- GSAP & Plugins via CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Ambient Canvas for Petals & Sparkles -->
+  <canvas id="ambient-canvas"></canvas>
+
+  <!-- Audio Player Pill -->
+  <div class="audio-widget" id="audio-widget" title="Toggle Music">
+    <div class="equalizer" id="equalizer">
+      <span class="bar bar-1"></span>
+      <span class="bar bar-2"></span>
+      <span class="bar bar-3"></span>
+      <span class="bar bar-4"></span>
+    </div>
+    <div class="audio-info">
+      <span class="song-title">Aankhon Se Batana</span>
+      <span class="song-artist">Dikshant</span>
+    </div>
+    <button class="audio-btn" id="audio-btn" aria-label="Play or pause audio">
+      <svg id="play-icon" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M8 5v14l11-7z" />
+      </svg>
+      <svg id="pause-icon" class="hidden" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
+      </svg>
+    </button>
+  </div>
+
+  <!-- Music prompt toast (shown until user interacts) -->
+  <div class="music-prompt" id="music-prompt">
+    <span class="music-note">🎵</span>
+    <span>Click anywhere to experience with sound</span>
+  </div>
+
+  <!-- Vertical Dot Navigation -->
+  <nav class="dot-nav" id="dot-nav" aria-label="Story chapter navigation">
+    <button class="nav-dot active" data-index="0" aria-label="Scene 1: The Glance">
+      <span class="tooltip">01. The Glance</span>
+    </button>
+    <button class="nav-dot" data-index="1" aria-label="Scene 2: The Blush">
+      <span class="tooltip">02. The Blush</span>
+    </button>
+    <button class="nav-dot" data-index="2" aria-label="Scene 3: The Wait">
+      <span class="tooltip">03. The Wait</span>
+    </button>
+    <button class="nav-dot" data-index="3" aria-label="Scene 4: A Sign">
+      <span class="tooltip">04. A Sign</span>
+    </button>
+    <button class="nav-dot" data-index="4" aria-label="Scene 5: Your Hand">
+      <span class="tooltip">05. Your Hand</span>
+    </button>
+    <button class="nav-dot" data-index="5" aria-label="Scene 6: As One">
+      <span class="tooltip">06. As One</span>
+    </button>
+    <button class="nav-dot" data-index="6" aria-label="Scene 7: The Café">
+      <span class="tooltip">07. The Café</span>
+    </button>
+    <button class="nav-dot" data-index="7" aria-label="Scene 8: Silence">
+      <span class="tooltip">08. Silence</span>
+    </button>
+  </nav>
+
+  <!-- Fullscreen Snap Scroll Container -->
+  <main class="story-container" id="story-container">
+
+    <!-- Scene 1: The Glance -->
+    <section class="scene" id="scene-1" data-scene="0">
+      <div class="scene-bg" style="background-image: url('assets/images/scene1_the_glance.jpg');"></div>
+      <div class="scene-overlay"></div>
+      <div class="scene-content pos-top-left">
+        <div class="tagline">TUM AANKHON SE BATANA</div>
+        <h1 class="scene-title">The<br />Glance</h1>
+        <p class="scene-sub">a love told without words</p>
+      </div>
+      <div class="scroll-hint" id="scroll-hint">
+        <span class="scroll-text">SCROLL</span>
+        <div class="scroll-arrow">↓</div>
+      </div>
+    </section>
+
+    <!-- Scene 2: The Blush -->
+    <section class="scene" id="scene-2" data-scene="1">
+      <div class="scene-bg" style="background-image: url('assets/images/scene2_the_blush.jpg');"></div>
+      <div class="scene-overlay"></div>
+      <div class="scene-content pos-top-left">
+        <div class="tagline">TUM HALKI SI SHARMANA</div>
+        <h2 class="scene-title">The<br />Blush</h2>
+        <p class="scene-sub">and I'm yours</p>
+      </div>
+    </section>
+
+    <!-- Scene 3: The Wait -->
+    <section class="scene" id="scene-3" data-scene="2">
+      <div class="scene-bg" style="background-image: url('assets/images/scene3_the_wait.jpg');"></div>
+      <div class="scene-overlay"></div>
+      <div class="shooting-star-container"></div>
+      <div class="scene-content pos-top-right text-right">
+        <div class="tagline">HUM RAAH TAAKE BAITHE</div>
+        <h2 class="scene-title">The<br />Wait</h2>
+        <p class="scene-sub">hoping for a sign</p>
+      </div>
+    </section>
+
+    <!-- Scene 4: A Sign -->
+    <section class="scene" id="scene-4" data-scene="3">
+      <div class="scene-bg" style="background-image: url('assets/images/scene4_a_sign.jpg');"></div>
+      <div class="scene-overlay"></div>
+      <div class="scene-content pos-bottom-right text-right">
+        <div class="tagline">KOI IJAZAT DO</div>
+        <h2 class="scene-title">A<br />Sign</h2>
+        <p class="scene-sub">she answers</p>
+      </div>
+    </section>
+
+    <!-- Scene 5: Your Hand -->
+    <section class="scene" id="scene-5" data-scene="4">
+      <div class="scene-bg" style="background-image: url('assets/images/scene5_your_hand.jpg');"></div>
+      <div class="scene-overlay"></div>
+      <div class="scene-content pos-bottom-left">
+        <div class="tagline">TUM HAATH THAAM LENA</div>
+        <h2 class="scene-title">Your<br />Hand</h2>
+        <p class="scene-sub">and I'm complete</p>
+      </div>
+    </section>
+
+    <!-- Scene 6: As One -->
+    <section class="scene" id="scene-6" data-scene="5">
+      <div class="scene-bg" style="background-image: url('assets/images/scene6_as_one.jpg');"></div>
+      <div class="scene-overlay"></div>
+      <div class="scene-content pos-bottom-right text-right">
+        <div class="tagline">HUM TERE HO JAAYENGE</div>
+        <h2 class="scene-title">As<br />One</h2>
+        <p class="scene-sub">and I'll be yours</p>
+      </div>
+    </section>
+
+    <!-- Scene 7: The Café -->
+    <section class="scene" id="scene-7" data-scene="6">
+      <div class="scene-bg" style="background-image: url('assets/images/scene7_the_cafe.jpg');"></div>
+      <div class="scene-overlay"></div>
+      <div class="scene-content pos-bottom-left">
+        <div class="tagline">BIN KUCH KAHE</div>
+        <h2 class="scene-title">The<br />Café</h2>
+        <p class="scene-sub">eyes do the talking</p>
+      </div>
+    </section>
+
+    <!-- Scene 8: Silence -->
+    <section class="scene" id="scene-8" data-scene="7">
+      <div class="scene-bg" style="background-image: url('assets/images/scene8_silence.jpg');"></div>
+      <div class="scene-overlay"></div>
+      <div class="shooting-star-container"></div>
+      <div class="scene-content pos-top-left">
+        <div class="tagline">HUM KHAAMOSHI PADH LENGE</div>
+        <h2 class="scene-title">Silence</h2>
+        <p class="scene-sub">I'll read it all</p>
+        <button class="replay-btn" id="replay-btn">
+          <span>↺ Experience Again</span>
+        </button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Hidden HTML5 Audio Element -->
+  <audio id="bg-audio" loop preload="auto">
+    <source src="assets/audio/music.m4a" type="audio/mp4" />
+    <source src="assets/audio/music.webm" type="audio/webm" />
+  </audio>
+
+  <!-- JavaScript -->
+  <script src="script.js"></script>
+</body>
+</html>
